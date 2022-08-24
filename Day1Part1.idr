@@ -1,4 +1,4 @@
-module Day1
+module Day1Part1
 
 import Control.Monad.State.Interface
 import Control.Monad.State.State
