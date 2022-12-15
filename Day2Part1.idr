@@ -182,5 +182,4 @@ main = do
                             let finalkeysequence : List Key
                                 finalkeysequence = keyPadMovementAll keypadinstructions
                                                                      Five
-
                             putStrLn ("AOC 2016 day 2, part 1 answer: " ++ (unwords $ map show finalkeysequence))
