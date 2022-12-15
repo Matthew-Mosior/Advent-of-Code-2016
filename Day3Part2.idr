@@ -1,4 +1,4 @@
-module Day3Part1
+module Day3Part2
 
 import Control.Monad.State.Interface
 import Control.Monad.State.State
@@ -49,6 +49,13 @@ countTriangles (x::xs) =
     then 1 + (countTriangles xs)
     else countTriangles xs
 
+chunksOf : Int -> List (Maybe Int) -> List (List (Maybe Int))
+chunksOf _ Nil = Nil 
+chunksOf i ls  =
+  [take (cast i) ls]
+  ++
+  (chunksOf i (drop (cast i) ls))
+
 main : IO ()
 main = do
   --Read input.txt.
@@ -57,10 +64,13 @@ main = do
   case inputfile of
        Left  error    => putStrLn $ show error
        Right filedata => do let filedatas : List (List (Maybe Int))
-                                filedatas = map (map parseInteger) $
+                                filedatas = chunksOf 3             $
+                                            concat                 $
+                                            transpose              $
+                                            map (map parseInteger) $ 
                                             map words              $
                                             map trim               $
-                                            lines                  $ 
+                                            lines                  $
                                             trim filedata
                             let triangledata : List (Maybe Triangle)
                                 triangledata = map toTriangle filedatas
@@ -68,4 +78,4 @@ main = do
                                 alltrianglebools = map isTriangle triangledata
                             let numoftriangles : Int
                                 numoftriangles = countTriangles alltrianglebools
-                            putStrLn ("AOC 2016 day 3, part 1 answer: " ++ show numoftriangles)
+                            putStrLn ("AOC 2016 day 3, part 2 answer: " ++ show numoftriangles)
