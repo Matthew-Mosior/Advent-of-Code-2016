@@ -59,7 +59,7 @@ Eq KeyPadInput where
   D == D = True
   L == L = True
   R == R = True
-  _ == _ = True
+  _ == _ = False
 
 public export
 Show KeyPadInput where
