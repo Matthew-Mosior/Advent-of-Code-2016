@@ -247,14 +247,12 @@ cycleAlphabet : Maybe Int
               -> List Char
 cycleAlphabet _        Nil     = Nil
 cycleAlphabet Nothing  _       = Nil
-cycleAlphabet (Just x) (y::ys) = 
-  if y == ' '
-    then (' ' :: (cycleAlphabet (Just x) ys))
-    else do let sectoridl : List Int
-                sectoridl = [1..x]
-            let nextdecryptedchar : Alphabet
-                nextdecryptedchar = execState (toAlphabet y) (alphabetForwardShift sectoridl)
-            (fromAlphabet nextdecryptedchar :: (cycleAlphabet (Just x) ys))
+cycleAlphabet (Just x) (y::ys) = do
+  let sectoridl : List Int
+      sectoridl = [1..x]
+  let nextdecryptedchar : Alphabet
+      nextdecryptedchar = execState (toAlphabet y) (alphabetForwardShift sectoridl)
+  (fromAlphabet nextdecryptedchar :: (cycleAlphabet (Just x) ys))
 
 main : IO ()
 main = do
