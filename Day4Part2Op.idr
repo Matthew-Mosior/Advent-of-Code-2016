@@ -317,7 +317,6 @@ cycleAlphabet (Just x) (y::ys) = do
   let sectoridl : List Int
       sectoridl = [1..x]
   let nextdecryptedchar : Alphabet
-      --nextdecryptedchar = execState (toAlphabet y) (alphabetForwardShift sectoridl)
       nextdecryptedchar = runST $ alphabetForwardShift sectoridl
                                                        (toAlphabet y)
   (fromAlphabet nextdecryptedchar :: (cycleAlphabet (Just x) ys))
